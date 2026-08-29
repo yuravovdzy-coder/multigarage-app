@@ -30,10 +30,13 @@ jobs:
 
     - name: Build APK with Buildozer
       run: |
+        # Отримуємо точну версію Python на сервері (наприклад 3.10.14)
+        PYTHON_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}')")
+        
         if [ -f "buildozer.spec" ]; then
-          buildozer -v android debug
+          buildozer -v android debug --requirements=python3==$PYTHON_VER,kivy,kivymd,pillow,plyer,sqlite3
         elif [ -f "garage_app/buildozer.spec" ]; then
-          cd garage_app && buildozer -v android debug
+          cd garage_app && buildozer -v android debug --requirements=python3==$PYTHON_VER,kivy,kivymd,pillow,plyer,sqlite3
         else
           echo "Error: buildozer.spec not found!" && exit 1
         fi
