@@ -10,7 +10,7 @@ source.include_patterns = assets/*,assets/**/*
 
 version = 1.0
 
-requirements = python3, kivy kivymd, pillow, requests, urllib3, certifi, chardet, idna, pyparsing
+requirements = python3, kivy, kivymd, pillow, requests, urllib3, certifi, chardet, idna, pyparsing
 
 orientation = portrait
 fullscreen = 0
