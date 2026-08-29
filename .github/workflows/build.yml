@@ -30,9 +30,6 @@ jobs:
 
     - name: Build APK with Buildozer
       run: |
-        export CFLAGS="-Wno-implicit-function-declaration -Wno-error=implicit-function-declaration"
-        export CPPFLAGS="-Wno-implicit-function-declaration -Wno-error=implicit-function-declaration"
-        
         if [ -f "buildozer.spec" ]; then
           buildozer -v android debug
         elif [ -f "garage_app/buildozer.spec" ]; then
