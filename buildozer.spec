@@ -10,7 +10,7 @@ source.include_patterns = assets/*,assets/**/*
 
 version = 1.0
 
-requirements = python3, kivy, kivymd, pillow, requests, urllib3, certifi, chardet, idna, pyparsing
+requirements = python3==3.11.9,kivy==2.2.1,kivymd==1.1.1,pillow,plyer,sqlite3
 
 orientation = portrait
 fullscreen = 0
@@ -22,7 +22,7 @@ android.presplash_color = #0E0F11
 android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,POST_NOTIFICATIONS
 
 android.api = 33
-android.minapi = 21
+android.minapi = 23
 android.ndk = 25b
 android.accept_sdk_license = True
 android.archs = arm64-v8a,armeabi-v7a
@@ -32,4 +32,3 @@ android.allow_backup = True
 [buildozer]
 log_level = 2
 warn_on_root = 1
-p4a.branch = master
