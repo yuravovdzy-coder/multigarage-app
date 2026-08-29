@@ -10,7 +10,7 @@ source.include_patterns = assets/*,assets/**/*
 
 version = 1.0
 
-requirements = python3==3.11.9,kivy==2.2.1,kivymd==1.1.1,pillow,plyer,sqlite3
+requirements = python3,kivy==2.2.1,kivymd==1.1.1,pillow,plyer,sqlite3
 
 orientation = portrait
 fullscreen = 0
