@@ -22,8 +22,9 @@ android.presplash_color = #0E0F11
 android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,POST_NOTIFICATIONS
 
 android.api = 33
-android.minapi = 23
-android.ndk = 25b
+android.minapi = 21
+android.ndk = 23b
+android.ndk_api = 21
 android.accept_sdk_license = True
 android.archs = arm64-v8a,armeabi-v7a
 
