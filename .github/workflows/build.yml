@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
@@ -27,11 +27,18 @@ jobs:
 
     - name: Build APK with Buildozer
       run: |
-        cd garage_app
-        buildozer -v android debug
+        if [ -f "buildozer.spec" ]; then
+          buildozer -v android debug
+        elif [ -f "garage_app/buildozer.spec" ]; then
+          cd garage_app && buildozer -v android debug
+        else
+          echo "Помилка: файл buildozer.spec не знайдено!" && exit 1
+        fi
 
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: GarageApp-APK
-        path: garage_app/bin/*.apk
+        path: |
+          bin/*.apk
+          garage_app/bin/*.apk
