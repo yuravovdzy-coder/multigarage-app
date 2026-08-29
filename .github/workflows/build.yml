@@ -41,12 +41,11 @@ jobs:
             build-essential
 
 
-  
       - name: Upgrade build tools
         run: |
           python -m pip install --upgrade pip setuptools
-          pip install git+https://github.com
-          pip install git+https://github.com
+          pip install Cython==0.29.33 buildozer
+
 
 
       - name: Clean Buildozer Cache
