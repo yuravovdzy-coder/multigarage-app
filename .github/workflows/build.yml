@@ -29,6 +29,9 @@ jobs:
         pip install "cython<3.0.0" buildozer
 
     - name: Build APK with Buildozer
+      env:
+        CFLAGS: "-Wno-error=implicit-function-declaration"
+        APP_CFLAGS: "-Wno-error=implicit-function-declaration"
       run: |
         if [ -f "buildozer.spec" ]; then
           buildozer -v android debug
