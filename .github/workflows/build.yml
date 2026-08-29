@@ -28,9 +28,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools buildozer python-for-android
 
-      - name: Build APK with Buildozer
-        run: |
-          buildozer android debug
+      - name: Clean Buildozer Cache
+        run: buildozer appclean
+
+      - name: Build with Buildozer
+        run: buildozer android debug
+
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
