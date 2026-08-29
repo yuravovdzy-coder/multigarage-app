@@ -2,49 +2,37 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-    - name: Install System Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          git zip unzip openjdk-17-jdk python3-pip autoconf libtool \
-          pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libffi-dev \
-          libssl-dev libltdl-dev ccache clang ffmpeg
-        pip install --upgrade pip setuptools wheel
-        pip install "cython<3.0.0" buildozer
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libsqlite3-dev cmake libssl-dev
 
-    - name: Build APK with Buildozer
-      run: |
-        # Отримуємо точну версію Python на сервері (наприклад 3.10.14)
-        PYTHON_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}')")
-        
-        if [ -f "buildozer.spec" ]; then
-          buildozer -v android debug --requirements=python3==$PYTHON_VER,kivy,kivymd,pillow,plyer,sqlite3
-        elif [ -f "garage_app/buildozer.spec" ]; then
-          cd garage_app && buildozer -v android debug --requirements=python3==$PYTHON_VER,kivy,kivymd,pillow,plyer,sqlite3
-        else
-          echo "Error: buildozer.spec not found!" && exit 1
-        fi
+      - name: Upgrade build tools
+        run: |
+          python -m pip install --upgrade pip setuptools buildozer python-for-android
 
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: GarageApp-APK
-        path: |
-          bin/*.apk
-          garage_app/bin/*.apk
+      - name: Build APK with Buildozer
+        run: |
+          buildozer android debug
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-app-apk
+          path: bin/*.apk
