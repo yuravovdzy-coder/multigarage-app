@@ -31,6 +31,11 @@ jobs:
           sudo ln -sf $(which python3.11) /usr/bin/python3
           /usr/bin/python3 --version
 
+      - name: Set Java 17 for Gradle
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME_17_X64" >> $GITHUB_ENV
+          $JAVA_HOME_17_X64/bin/java -version
+
       - name: Install Buildozer
         run: |
           python -m pip install --upgrade pip setuptools wheel
